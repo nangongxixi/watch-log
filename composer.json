@@ -1,0 +1,40 @@
+{
+    "name": "scalpel/watch-log",
+
+    "authors": [
+        {
+            "name": "Scalpel",
+            "email": "373966902@qq.com"
+        }
+    ],
+
+    "minimum-stability" : "dev",
+
+    "autoload": {
+        "psr-4": {
+            "j\\watchLog\\": "src/"
+        }
+    },
+
+    "repositories": [       
+        {
+            "type": "composer",
+            "url": "https://packagist.phpcomposer.com"
+        },
+        {"packagist": false}
+    ],
+
+    "require": {
+        "scalpel/http" : "*"
+    },
+
+    "require-dev" : {
+        "scalpel/ide-doc" : "*"
+    },
+
+    "config" : {
+        "secure-http" : false
+    },
+
+    "bin" : ["bin/watchLog.php"]
+}
