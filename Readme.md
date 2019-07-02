@@ -5,7 +5,7 @@
 
 ![](example.png)
 
-注意: 可以增加任何文件监听, 为了您的安全请用于测试环境下运行, 或是自行增加防火墙规则安全访问
+注意: 可以增加任何文件监听, 可以点击选择想要监听的文件，为了您的安全请用于测试环境下运行, 或是自行增加防火墙规则安全访问
 
 ## install
 
@@ -20,7 +20,8 @@ composer install scalpel/watch-log:*
 使用 --config configFilePath 设置配置文件路径,  
 默认配置文件 project_root/config-watchLog.php
 
-```php
+####简单配置：
+```
 <?php
 
 return [
@@ -32,8 +33,54 @@ return [
 ];
 ```
 
-## usage
+####DirectoryIterator类自动遍历日志目录：
 
+```
+$opts = getopt("p");
+$isPre = false;
+if (isset($opts['p'])) {
+    $isPre = true;
+}
+
+$logs = [];
+if ($isPre) {
+    $port = 9506;
+    $dir = new DirectoryIterator(dirname(__DIR__) . "/tmp/log/");
+} else {
+    $port = 9505;
+    $dir = new DirectoryIterator(__DIR__ . "/tmp/log/");
+}
+
+foreach ($dir as $file) {
+    if (!$file->isDot() && $file->isFile() && strpos($file->getFilename(), '.') !== 0) {
+        $logs[] = $file->getPathname();
+    }
+}
+
+/*
+ eg:   [
+            'server' => '127.0.0.1',
+            'port' => 9505,
+            'logs' => [
+                '/mnt/d/testComposer/tmp/log/error.log',
+                '/mnt/d/testComposer/tmp/log/sql.log'
+            ]
+        ];
+*/
+return [
+    'server' => '127.0.0.1',
+    'port' => $port,
+    'logs' => $logs
+];
+```
+
+## run
+
+```
+php vendor/bin/WatchLog.php -v
+```
+
+## help
 php vendor/bin/WatchLog.php -h
 
 ```
@@ -53,12 +100,8 @@ Options:
 
 ```
 
-## 访问
+
+
+## use
 
 http://your_server:port
-
-
-## todo
-
-1. 增加日志到用户监控
-1. 增加客户端收集远程主机日志
