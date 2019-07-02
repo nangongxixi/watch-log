@@ -20,7 +20,7 @@ composer install scalpel/watch-log:*
 使用 --config configFilePath 设置配置文件路径,  
 默认配置文件 project_root/config-watchLog.php
 
-####简单配置：
+#### 简单配置：
 ```
 <?php
 
@@ -33,7 +33,7 @@ return [
 ];
 ```
 
-####DirectoryIterator类自动遍历日志目录：
+#### DirectoryIterator类自动遍历日志目录：
 
 ```
 $opts = getopt("p");
@@ -104,4 +104,4 @@ Options:
 
 ## use
 
-http://your_server:port
+http://your_server:port    （如:http://127.0.0.1:9505/）
